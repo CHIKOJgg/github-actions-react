@@ -15,3 +15,11 @@ jobs:
         with:
           path: build
           name: build-files
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: get build prjct
+        uses: actions/download-artifact@v5
+        with:
+          name: build-files
