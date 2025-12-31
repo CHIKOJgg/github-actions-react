@@ -1,0 +1,34 @@
+name: deploy react app
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get repo code
+        uses: actions/checkout@v6
+      - name: i dep
+        run: npm ci
+      - name: test
+        run: npm run test
+  lint:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: get repo code
+        uses: actions/checkout@v6
+      - name: i dep
+        run: npm ci
+      - name: lint
+        run: npm run lint
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: get repo code
+        uses: actions/checkout@v6
+      - name: i dep
+        run: npm ci
+      - name: build
+        run: npm run build
+      - name: depl
+        run: echo deply=oying
