@@ -22,7 +22,7 @@ jobs:
         run: npm run test
   lint:
     runs-on: ubuntu-latest
-    needs: test
+
     steps:
       - name: get repo code
         uses: actions/checkout@v6
@@ -36,8 +36,12 @@ jobs:
       - name: lint
         run: npm run lint
   build:
-    runs-on: ubuntu-latest
-    needs: lint
+    needs: [lint, test]
+    strategy:
+      matrix:
+        node-version: [14, 16]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     steps:
       - name: get repo code
         uses: actions/checkout@v6
